@@ -5,20 +5,29 @@ function getDogBreed(breed) {
     .then(response => response.json())
     .then(responseJson => 
       displayResults(responseJson))
-    .catch(error => alert('Something went wrong. Try again later.'));
+    //.catch(error => alert('Something went wrong. Try again later.'));
 
      
 
 }
 
+
 function displayResults(responseJson) {
   console.log(responseJson);
   //clears the results 
   $('.results').html('');
+
+  if(responseJson.status === "success"){
+      $('.results').append(`<img src="${responseJson.message}" class="results">`);
+      $('.results').removeClass('hidden');
+
+  } else if(responseJson.status === "error"){
+      return alert("Sorry, that breed does not exist. Please try a different breed.")
+  }
   //replaces the image with the new image
-      $('.results').append(`<img src="${responseJson.message}" class="results">`)
+  //$('.results').append(`<img src="${responseJson.message}" class="results">`)
   //display the results section
-  $('.results').removeClass('hidden');
+  //$('.results').removeClass('hidden');
 }
 
 function watchForm() {
